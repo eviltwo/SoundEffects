@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c1b5ee9ed40bc4d998d55ac6c683b0, type: 3}
+  m_Name: SoundEffectDetailList
+  m_EditorClassIdentifier: 
+  _soundEffectDetails:
+  - {fileID: 11400000, guid: 4703107efb03ae74b8a2181b0972f743, type: 2}
+  - {fileID: 11400000, guid: d371834fa93cdb34d9d8dbfa4c54ee67, type: 2}
+  - {fileID: 11400000, guid: 04fab9c6aa3bab141a17acb1cf9ecacf, type: 2}
+  _autoCollectDirectories:
+  - Battle
