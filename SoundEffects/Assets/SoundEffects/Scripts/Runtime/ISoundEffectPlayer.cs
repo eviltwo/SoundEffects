@@ -4,10 +4,10 @@ namespace SoundEffects
 {
     public interface ISoundEffectPlayer
     {
-        void PlayOneShot(string name, float volume);
+        void PlayOneShot(in SoundEffectPlayRequest request);
 
-        void PlayOneShot(string name, float volume, Vector3 worldPosition);
+        void PlayOneShot(in SoundEffectPlayRequest request, Vector3 worldPosition);
 
-        void PlayOneShot(string name, float volume, Transform parent, Vector3 localPosition);
+        void PlayOneShot(in SoundEffectPlayRequest request, Transform parent, Vector3 localPosition);
     }
 }

@@ -25,6 +25,8 @@ public class LoopSample : MonoBehaviour
 
     private void PlaySound(string key)
     {
-        SoundEffectManager.Player.PlayOneShot(key, 1);
+        var request = SoundEffectPlayRequest.Default;
+        request.Name = key;
+        SoundEffectManager.Player.PlayOneShot(request);
     }
 }

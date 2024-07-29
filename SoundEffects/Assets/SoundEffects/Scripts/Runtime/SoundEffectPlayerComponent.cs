@@ -36,24 +36,24 @@ namespace SoundEffects
             _audioSourcePool = new AudioSourcePool(_defaultAudioSource, transform, _defaultPoolSize);
         }
 
-        public void PlayOneShot(string name, float volume)
+        public void PlayOneShot(in SoundEffectPlayRequest request)
         {
-            PlayOneShotImpl(name, volume, false, null, Vector3.zero);
+            PlayOneShotImpl(request, false, null, Vector3.zero);
         }
 
-        public void PlayOneShot(string name, float volume, Vector3 worldPosition)
+        public void PlayOneShot(in SoundEffectPlayRequest request, Vector3 worldPosition)
         {
-            PlayOneShotImpl(name, volume, true, null, worldPosition);
+            PlayOneShotImpl(request, true, null, worldPosition);
         }
 
-        public void PlayOneShot(string name, float volume, Transform parent, Vector3 localPosition)
+        public void PlayOneShot(in SoundEffectPlayRequest request, Transform parent, Vector3 localPosition)
         {
-            PlayOneShotImpl(name, volume, true, parent, localPosition);
+            PlayOneShotImpl(request, true, parent, localPosition);
         }
 
-        private void PlayOneShotImpl(string name, float volume, bool is3d, Transform parent, Vector3 localPosition)
+        private void PlayOneShotImpl(in SoundEffectPlayRequest request, bool is3d, Transform parent, Vector3 localPosition)
         {
-            if (_soundEffectDetailList.TryGetItem(name, out var detail))
+            if (_soundEffectDetailList.TryGetItem(request.Name, out var detail))
             {
                 var index = SoundEffectUtility.ChooseAudioClip(detail.AudioClipDetails, _random);
                 var audioClipDetail = detail.AudioClipDetails[index];
@@ -65,7 +65,7 @@ namespace SoundEffects
                 {
                     var position = parent == null ? localPosition : parent.TransformPoint(localPosition);
                     var sqrDist = Vector3.SqrMagnitude(position - _audioListener.position);
-                    var distanceThreshold = Mathf.Lerp(detail.MinDistance, detail.MaxDistance, volume);
+                    var distanceThreshold = Mathf.Lerp(detail.MinDistance, detail.MaxDistance, request.Volume);
                     if (sqrDist > distanceThreshold * distanceThreshold)
                     {
                         return;
@@ -73,13 +73,21 @@ namespace SoundEffects
                 }
 
                 var audioSource = _audioSourcePool.GetOrCreate();
-                audioSource.name = $"AudioSource_{name}";
-                audioSource.volume = audioClipDetail.Volume * volume;
+                audioSource.name = $"AudioSource_{request.Name}";
+                audioSource.clip = audioClipDetail.AudioClip;
+                audioSource.volume = audioClipDetail.Volume * request.Volume;
                 audioSource.pitch = Mathf.Lerp(audioClipDetail.MinPitch, audioClipDetail.MaxPitch, (float)_random.NextDouble());
                 audioSource.spatialBlend = spatialBlend;
                 audioSource.minDistance = detail.MinDistance;
                 audioSource.maxDistance = detail.MaxDistance;
-                audioSource.PlayOneShot(audioClipDetail.AudioClip);
+                if (request.Delay == 0)
+                {
+                    audioSource.Play();
+                }
+                else
+                {
+                    audioSource.PlayDelayed(request.Delay);
+                }
                 var holder = new SoundEffectHolder(audioSource, parent, localPosition);
                 _playingAudioSources.Add(holder);
             }
@@ -170,6 +178,7 @@ namespace SoundEffects
 
         public void Return(AudioSource audioSource)
         {
+            audioSource.clip = null;
             audioSource.gameObject.SetActive(false);
             audioSource.transform.SetParent(_parent);
             _pooledAudioSources.Enqueue(audioSource);

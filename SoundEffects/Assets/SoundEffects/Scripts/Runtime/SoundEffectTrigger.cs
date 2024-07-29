@@ -5,19 +5,16 @@ namespace SoundEffects
     public class SoundEffectTrigger : MonoBehaviour
     {
         [SerializeField]
-        public string SoundEffectName = string.Empty;
-
-        [SerializeField]
-        public float Volume = 1.0f;
+        public SoundEffectPlayRequest Request = SoundEffectPlayRequest.Default;
 
         public void Play()
         {
-            SoundEffectManager.Player?.PlayOneShot(SoundEffectName, Volume);
+            SoundEffectManager.Player?.PlayOneShot(Request);
         }
 
         public void Play3D()
         {
-            SoundEffectManager.Player?.PlayOneShot(SoundEffectName, Volume, transform.position);
+            SoundEffectManager.Player?.PlayOneShot(Request, transform.position);
         }
     }
 }
