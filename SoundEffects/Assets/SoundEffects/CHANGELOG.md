@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.0] - 2024-09-18
+### Added
+- Added base class for detail list.
+- Added detail list group class.
+
 ## [0.2.0] - 2024-07-29
 ### Added
 - Added a feature to automatically search for Detail assets.
