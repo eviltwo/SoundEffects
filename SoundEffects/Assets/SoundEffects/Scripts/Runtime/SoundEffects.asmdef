@@ -1,6 +1,6 @@
 {
     "name": "SoundEffects",
-    "rootNamespace": "",
+    "rootNamespace": "SoundEffects",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

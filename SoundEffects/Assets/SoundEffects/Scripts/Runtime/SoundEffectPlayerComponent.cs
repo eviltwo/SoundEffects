@@ -5,16 +5,13 @@ namespace SoundEffects
     public class SoundPlayerComponent : MonoBehaviour, ISoundEffectPlayer
     {
         [SerializeField]
-        private SoundEffectDetailList _soundEffectDetailList = null;
+        private SoundEffectDetailFinder _soundEffectDetailFinder = null;
 
         [SerializeField]
         private AudioSource _defaultAudioSource = null;
 
         [SerializeField]
         private int _defaultPoolSize = 16;
-
-        [SerializeField]
-        private int _maxPoolSize = 64;
 
         private readonly System.Random _random = new System.Random();
         private AudioSourcePool _audioSourcePool;
@@ -53,7 +50,7 @@ namespace SoundEffects
 
         private void PlayOneShotImpl(in SoundEffectPlayRequest request, bool is3d, Transform parent, Vector3 localPosition)
         {
-            if (_soundEffectDetailList.TryGetItem(request.Name, out var detail))
+            if (_soundEffectDetailFinder.FindDetail(request.Name, out var detail))
             {
                 var index = SoundEffectUtility.ChooseAudioClip(detail.AudioClipDetails, _random);
                 var audioClipDetail = detail.AudioClipDetails[index];

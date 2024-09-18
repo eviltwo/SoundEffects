@@ -566,10 +566,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee6c6430829a224c8807cfb9daabc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundEffectDetailList: {fileID: 11400000, guid: 70188b1825e776840b46093b502ad431, type: 2}
+  _soundEffectDetailFinder: {fileID: 11400000, guid: 6b4e9bb0e015c25418c6786139a057fb, type: 2}
   _defaultAudioSource: {fileID: 73503999}
   _defaultPoolSize: 16
-  _maxPoolSize: 64
 --- !u!4 &1080542808
 Transform:
   m_ObjectHideFlags: 0

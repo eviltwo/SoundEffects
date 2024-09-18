@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SoundEffects
 {
-    [CreateAssetMenu(fileName = "SoundEffectDetail", menuName = "SoundEffects/SoundEffectDetail")]
+    [CreateAssetMenu(fileName = "SoundEffectDetail", menuName = "SoundEffects/Detail")]
     public class SoundEffectDetail : ScriptableObject
     {
         [SerializeField]

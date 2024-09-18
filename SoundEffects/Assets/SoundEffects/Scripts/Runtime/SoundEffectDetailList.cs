@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace SoundEffects
 {
-    [CreateAssetMenu(fileName = "SoundEffectDetailList", menuName = "SoundEffects/SoundEffectDetailList")]
-    public class SoundEffectDetailList : ScriptableObject
+    [CreateAssetMenu(fileName = "SoundEffectDetailList", menuName = "SoundEffects/DetailList")]
+    public class SoundEffectDetailList : SoundEffectDetailFinder
     {
         [Header("Details")]
         [SerializeField]
@@ -15,7 +15,7 @@ namespace SoundEffects
         private string[] _autoCollectDirectories = null;
         public string[] AutoCollectDirectories => _autoCollectDirectories;
 
-        public bool TryGetItem(string name, out SoundEffectDetail detail)
+        public override bool FindDetail(string name, out SoundEffectDetail detail)
         {
             var count = _soundEffectDetails.Length;
             for (var i = 0; i < count; i++)
