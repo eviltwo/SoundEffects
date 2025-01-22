@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SoundEffects
 {
@@ -6,7 +7,17 @@ namespace SoundEffects
     public class SoundEffectDetail : ScriptableObject
     {
         [SerializeField]
-        private AudioClipDetail[] _audioClipDetails = null;
+        private AudioClipDetail[] _audioClipDetails = new AudioClipDetail[]
+        {
+            new AudioClipDetail
+            {
+                AudioClip = null,
+                Weight = 1,
+                Volume = 1,
+                MinPitch = 1,
+                MaxPitch = 1,
+            }
+        };
         public AudioClipDetail[] AudioClipDetails => _audioClipDetails;
 
         [SerializeField]
@@ -25,24 +36,19 @@ namespace SoundEffects
     [System.Serializable]
     public class AudioClipDetail
     {
-        [SerializeField]
-        private AudioClip _audioClip = null;
-        public AudioClip AudioClip => _audioClip;
+        [FormerlySerializedAs("_audioClip")]
+        public AudioClip AudioClip;
 
-        [SerializeField]
-        private float _weight = 1.0f;
-        public float Weight => _weight;
+        [FormerlySerializedAs("_weight")]
+        public float Weight;
 
-        [SerializeField]
-        private float _volume = 1.0f;
-        public float Volume => _volume;
+        [FormerlySerializedAs("_volume")]
+        public float Volume;
 
-        [SerializeField]
-        private float _minPitch = 1.0f;
-        public float MinPitch => _minPitch;
+        [FormerlySerializedAs("_minPitch")]
+        public float MinPitch;
 
-        [SerializeField]
-        private float _maxPitch = 1.0f;
-        public float MaxPitch => _maxPitch;
+        [FormerlySerializedAs("_maxPitch")]
+        public float MaxPitch;
     }
 }
