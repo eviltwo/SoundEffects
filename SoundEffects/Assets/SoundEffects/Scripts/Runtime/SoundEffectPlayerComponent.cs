@@ -88,6 +88,10 @@ namespace SoundEffects
                 var holder = new SoundEffectHolder(audioSource, parent, localPosition);
                 _playingAudioSources.Add(holder);
             }
+            else
+            {
+                Debug.LogError($"Sound not found: {request.Name}");
+            }
         }
 
         private void Update()
